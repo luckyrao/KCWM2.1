@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/tool_barex3"
+        layout="@layout/tool_barex6"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView4"
-                android:src="@drawable/a3image1"
+                android:src="@drawable/a6image2"
                 android:adjustViewBounds="false" />
 
         </LinearLayout>
@@ -58,9 +58,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView"
+                android:id="@+id/imageView5"
                 android:layout_gravity="center_horizontal"
-                android:src="@mipmap/pageicon" />
+                android:src="@mipmap/secondpageicon" />
         </LinearLayout>
 
     </LinearLayout>
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Abolitionism and Underground Railroad (Audio 1)"
+            android:text="Tenting Tonight (Audio 2)"
             android:textStyle="bold"
             android:id="@+id/textView2"
             android:gravity="center_vertical|center_horizontal" />
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/exhibit3Area1"
+                android:text="@string/exhibit4Area2"
                 android:id="@+id/textView3"
                 android:paddingTop="10dp"
                 android:paddingLeft="5dp"

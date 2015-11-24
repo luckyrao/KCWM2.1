@@ -3,12 +3,21 @@ package com.example.ivanvillalobos.kcwm;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
-public class Exhibit4 extends AppCompatActivity {
+public class Exhibit4 extends AppCompatActivity implements GestureDetector.OnGestureListener,
+        GestureDetector.OnDoubleTapListener{
+
+
+    private GestureDetectorCompat gestureDetector;
+    private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
 
     MediaPlayer audio;
@@ -53,7 +62,8 @@ public class Exhibit4 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibit4);
 
-
+        this.gestureDetector= new GestureDetectorCompat(this,this);
+        gestureDetector.setOnDoubleTapListener(this);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -88,6 +98,91 @@ public class Exhibit4 extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+
+        return true;
+
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+
+        return true;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    public void onSwipeLeft() {
+
+        Intent myIntent = new Intent(Exhibit4.this, Exhibit4b.class);
+        Exhibit4.this.startActivity(myIntent);
+        finish();
+
+
+    }
+    public void onSwipeRight() {
+
+
+    }
+
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        float distanceX = e2.getX() - e1.getX();
+        float distanceY = e2.getY() - e1.getY();
+        if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+            if (distanceX > 0)
+                onSwipeRight();
+            else
+                onSwipeLeft();
+            return true;
+        }
+        return false;
     }
 
 }

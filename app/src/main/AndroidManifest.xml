@@ -25,11 +25,17 @@
         </activity>
         <activity android:name=".Exhibit3" >
         </activity>
+        <activity android:name=".Exhibit3b" >
+        </activity>
         <activity android:name=".Exhibit4" >
+        </activity>
+        <activity android:name=".Exhibit4b" >
         </activity>
         <activity android:name=".Exhibit5" >
         </activity>
         <activity android:name=".Exhibit6" >
+        </activity>
+        <activity android:name=".Exhibit6b" >
         </activity>
         <activity android:name=".Exhibit7" >
         </activity>

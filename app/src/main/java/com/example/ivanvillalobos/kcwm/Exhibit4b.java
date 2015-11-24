@@ -1,21 +1,17 @@
 package com.example.ivanvillalobos.kcwm;
 
-
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.support.v4.view.GestureDetectorCompat;
-import android.widget.Toast;
+import android.view.View;
 
-
-/**
- * Created by ivanvillalobos on 11/2/15.
- */
-public class Home extends Map implements GestureDetector.OnGestureListener,
+public class Exhibit4b extends AppCompatActivity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener{
 
 
@@ -24,40 +20,86 @@ public class Home extends Map implements GestureDetector.OnGestureListener,
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
 
+    MediaPlayer audio;
+    int paused;
+
+    public void playMusic (View view) {
+        if(audio == null) {
+            audio = MediaPlayer.create(this, R.raw.tovivaldi);
+            audio.start();
+        }else if(!audio.isPlaying()){
+            audio.seekTo(paused);
+            audio.start();
+        }
+    }
+
+    public void pauseMusic(View view) {
+        audio.pause();
+        paused = audio.getCurrentPosition();
+    }
+
+    public void stopMusic(View view) {
+        audio.release();
+        audio = null;
+    }
+
+
+
+
+
+
+    private android.support.v7.widget.Toolbar toolbar;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
+        getMenuInflater().inflate(R.menu.menu_exhibits, menu);
 
         return true;
     }
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
+        setContentView(R.layout.activity_exhibit4b);
 
         this.gestureDetector= new GestureDetectorCompat(this,this);
         gestureDetector.setOnDoubleTapListener(this);
 
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
 
     }
-
-
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        {
-            return true;
+
+        if(id==R.id.navigate){
+            startActivity(new Intent(this, Exhibit5.class));
+            finish();
+
         }
+
+        if(id==R.id.navigatePrevious){
+            startActivity(new Intent(this, Exhibit3.class));
+            finish();
+
+        }
+
+        if(id==R.id.map){
+            startActivity(new Intent(this, Map.class));
+            finish();
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+
+
 
     }
 
@@ -69,10 +111,7 @@ public class Home extends Map implements GestureDetector.OnGestureListener,
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
-        //Toast.makeText(Home.this, "Single tap!", Toast.LENGTH_SHORT).show();
-        Intent myIntent = new Intent(Home.this, Map.class);
-        Home.this.startActivity(myIntent);
-        finish();
+
         return true;
 
     }
@@ -118,21 +157,21 @@ public class Home extends Map implements GestureDetector.OnGestureListener,
     }
 
     public void onSwipeLeft() {
-        Toast.makeText(Home.this, "Single tap!", Toast.LENGTH_SHORT).show();
-        Intent myIntent = new Intent(Home.this, Map.class);
-        Home.this.startActivity(myIntent);
-        finish();
+
 
     }
     public void onSwipeRight() {
-        Toast.makeText(Home.this, "Single tap!", Toast.LENGTH_SHORT).show();
+
+        Intent myIntent = new Intent(Exhibit4b.this, Exhibit4.class);
+        Exhibit4b.this.startActivity(myIntent);
+        finish();
 
     }
 
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-       float distanceX = e2.getX() - e1.getX();
+        float distanceX = e2.getX() - e1.getX();
         float distanceY = e2.getY() - e1.getY();
         if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
             if (distanceX > 0)
@@ -141,7 +180,7 @@ public class Home extends Map implements GestureDetector.OnGestureListener,
                 onSwipeLeft();
             return true;
         }
-       return false;
+        return false;
     }
 
 }
