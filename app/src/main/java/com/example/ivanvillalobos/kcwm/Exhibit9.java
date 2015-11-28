@@ -7,10 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 
 public class Exhibit9 extends AppCompatActivity {
 
+    SeekBar seek_bar;//seekbar
 
+    Handler seekHandler = new Handler();//seekbar
     MediaPlayer audio;
     int paused;
 
@@ -53,7 +56,8 @@ public class Exhibit9 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exhibit9);
 
-
+ getInit();
+        seekUpdation();
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -62,7 +66,26 @@ public class Exhibit9 extends AppCompatActivity {
 
 
     }
+    public void getInit() {
+        seek_bar = (SeekBar) findViewById(R.id.seek_bar);
 
+
+        audio = MediaPlayer.create(this, R.raw.tovivaldi);
+        seek_bar.setMax(audio.getDuration());
+    }
+    Runnable run = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            seekUpdation();
+        }
+    };
+    public void seekUpdation()
+    {
+        seek_bar.setProgress(audio.getCurrentPosition());
+        seekHandler.postDelayed(run, 0);
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
