@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.MotionEvent;
 import android.support.v4.view.GestureDetectorCompat;
 import android.widget.Toast;
+import android.widget.SeekBar;
 
 public class Exhibit3 extends AppCompatActivity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener{
@@ -20,7 +21,9 @@ public class Exhibit3 extends AppCompatActivity implements GestureDetector.OnGes
     private static final int SWIPE_DISTANCE_THRESHOLD = 100;
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
+  SeekBar seek_bar;//seekbar
 
+    Handler seekHandler = new Handler();//seekbar
     MediaPlayer audio;
     int paused;
 
@@ -66,6 +69,9 @@ public class Exhibit3 extends AppCompatActivity implements GestureDetector.OnGes
         this.gestureDetector= new GestureDetectorCompat(this,this);
         gestureDetector.setOnDoubleTapListener(this);
 
+        getInit();
+        seekUpdation();
+
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -73,6 +79,27 @@ public class Exhibit3 extends AppCompatActivity implements GestureDetector.OnGes
 
 
     }
+    public void getInit() {
+        seek_bar = (SeekBar) findViewById(R.id.seek_bar);
+
+
+        audio = MediaPlayer.create(this, R.raw.tovivaldi);
+        seek_bar.setMax(audio.getDuration());
+    }
+    Runnable run = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            seekUpdation();
+        }
+    };
+    public void seekUpdation()
+    {
+        seek_bar.setProgress(audio.getCurrentPosition());
+        seekHandler.postDelayed(run, 0);
+    }
+
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
