@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.SeekBar;
-
+import android.os.Handler;
 
 public class Exhibit3b extends AppCompatActivity implements GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener{
